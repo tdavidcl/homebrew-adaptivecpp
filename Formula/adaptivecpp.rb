@@ -14,7 +14,16 @@ class Adaptivecpp < Formula
     end
   
     test do
-      # Add a test to verify the software works (optional)
-      system "#{bin}/acpp", "--version"
+        # Add a test to verify the software works (optional)
+        system "#{bin}/acpp", "--version"
+
+        (testpath/"hellosycl.cpp").write <<~'C'
+            #include <sycl/sycl.hpp>
+
+            int main(){
+            }
+            C
+        system bin/"acpp", "hellosycl.cpp", "-o", "hello"
+        system "./hello"
     end
   end
