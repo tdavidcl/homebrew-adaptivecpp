@@ -10,13 +10,26 @@ class Adaptivecpp < Formula
   depends_on "llvm"
 
   def install
-     # Get the system compiler paths using xcrun
-     clang_path = `xcrun -f clang++`.chomp
-     cc_path = `xcrun -f clang`.chomp
- 
-     # Explicitly set CXX and CC to the system compiler paths
-     ENV["CXX"] = clang_path
-     ENV["CC"] = cc_path
+    # Determine the compiler path based on the platform
+    if OS.mac?
+      # For macOS, use xcrun to find the system clang++
+      clang_path = `xcrun -f clang++`.chomp
+      cc_path = `xcrun -f clang`.chomp
+    else
+      # For Linux, use 'which' or 'command -v' to find clang++ or g++
+      clang_path = `which clang++`.chomp
+      cc_path = `which clang`.chomp
+
+      # If clang is not found, fallback to g++ for Linux
+      if clang_path.empty?
+        clang_path = `which g++`.chomp
+        cc_path = `which gcc`.chomp
+      end
+    end
+
+    # Explicitly set CXX and CC to the system compiler paths
+    ENV["CXX"] = clang_path
+    ENV["CC"] = cc_path
 
     system "cmake", ".", *std_cmake_args
     system "make", "install"
