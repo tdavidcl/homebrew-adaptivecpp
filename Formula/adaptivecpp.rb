@@ -21,6 +21,7 @@ class Adaptivecpp < Formula
             #include <sycl/sycl.hpp>
 
             int main(){
+                sycl::queue q{};
             }
             C
         system bin/"acpp", "hellosycl.cpp", "-o", "hello"
