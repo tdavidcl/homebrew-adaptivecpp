@@ -17,14 +17,12 @@ class Adaptivecpp < Formula
       cc_path = `xcrun -f clang`.chomp
     else
       # For Linux, use 'which' or 'command -v' to find clang++ or g++
-      clang_path = `which clang++`.chomp
-      cc_path = `which clang`.chomp
+      # Get the LLVM installation path
+      llvm_prefix = Formula["llvm"].opt_prefix
 
-      # If clang is not found, fallback to g++ for Linux
-      if clang_path.empty?
-        clang_path = `which g++`.chomp
-        cc_path = `which gcc`.chomp
-      end
+      # Ensure that the correct clang++ is used from the LLVM dependency
+      clang_path = "#{llvm_prefix}/bin/clang++"
+      cc_path = "#{llvm_prefix}/bin/clang"
     end
 
     # Explicitly set CXX and CC to the system compiler paths
