@@ -10,6 +10,14 @@ class Adaptivecpp < Formula
   depends_on "llvm"
 
   def install
+     # Get the system compiler paths using xcrun
+     clang_path = `xcrun -f clang++`.chomp
+     cc_path = `xcrun -f clang`.chomp
+ 
+     # Explicitly set CXX and CC to the system compiler paths
+     ENV["CXX"] = clang_path
+     ENV["CC"] = cc_path
+
     system "cmake", ".", *std_cmake_args
     system "make", "install"
   end
