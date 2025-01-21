@@ -11,8 +11,7 @@ class Adaptivecpp < Formula
   depends_on "llvm"
   depends_on "python"
 
-  def install    
-    
+  def install
     libomp_root = Formula["libomp"].opt_prefix
 
     puts "libomp root: #{libomp_root}"
