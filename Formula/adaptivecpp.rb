@@ -23,8 +23,8 @@ class Adaptivecpp < Formula
     shim_references = [prefix/"etc/AdaptiveCpp/acpp-core.json"]
     inreplace shim_references, Superenv.shims_path/ENV.cxx, ENV.cxx
 
-    #we add -I#{libomp_root}/include to default-omp-cxx-flags
-    inreplace prefix/"etc/AdaptiveCpp/acpp-core.json", 
+    # we add -I#{libomp_root}/include to default-omp-cxx-flags
+    inreplace prefix/"etc/AdaptiveCpp/acpp-core.json",
       "\"default-omp-cxx-flags\" : \"", "\"default-omp-cxx-flags\" : \"-I#{libomp_root}/include "
 
     system "cat", prefix/"etc/AdaptiveCpp/acpp-core.json"
