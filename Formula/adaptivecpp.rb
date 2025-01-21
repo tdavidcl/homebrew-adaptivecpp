@@ -11,8 +11,13 @@ class Adaptivecpp < Formula
   depends_on "llvm"
   depends_on "python"
 
-  def install
-    system "cmake", ".", *std_cmake_args
+  def install    
+    
+    libomp_root = Formula["libomp"].opt_prefix
+
+    puts "libomp root: #{libomp_root}"
+
+    system "cmake", ".", *std_cmake_args, "-DOpenMP_ROOT=#{libomp_root}"
     system "make", "install"
 
     # Avoid references to Homebrew shims directory
