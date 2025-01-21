@@ -18,6 +18,8 @@ class Adaptivecpp < Formula
     # Avoid references to Homebrew shims directory
     shim_references = [prefix/"etc/AdaptiveCpp/acpp-core.json"]
     inreplace shim_references, Superenv.shims_path/ENV.cxx, ENV.cxx
+
+    system "cat", prefix/"etc/AdaptiveCpp/acpp-core.json"
   end
 
   test do
