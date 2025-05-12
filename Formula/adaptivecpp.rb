@@ -8,7 +8,8 @@ class Adaptivecpp < Formula
 
   depends_on "cmake" => :build
   depends_on "boost"
-  depends_on "llvm@19"
+  depends_on "llvm"
+  depends_on "ninja"
   uses_from_macos "python"
 
   on_macos do
@@ -23,7 +24,7 @@ class Adaptivecpp < Formula
       args << "-DOpenMP_ROOT=#{libomp_root}"
     end
 
-    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+    system "cmake", "-S", ".", "-B", "build", "-G", "Ninja", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
