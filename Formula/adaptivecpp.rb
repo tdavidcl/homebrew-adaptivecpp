@@ -8,7 +8,7 @@ class Adaptivecpp < Formula
 
   depends_on "cmake" => :build
   depends_on "boost"
-  depends_on "llvm"
+  depends_on "llvm@19"
   uses_from_macos "python"
 
   on_macos do
